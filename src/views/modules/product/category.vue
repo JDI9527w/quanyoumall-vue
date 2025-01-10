@@ -1,7 +1,9 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div>
+    <el-button type="danger" @click="deleteBatch">批量删除</el-button>
+    <br></br>
     <el-tree :data="menus" :props="defaultProps" @node-click="handleNodeClick" :expand-on-click-node="false"
-             node-key="catId" :default-expanded-keys="expandedKey">
+             node-key="catId" ref="menuTree" :show-checkbox=true>
     <span class="custom-tree-node" slot-scope="{ node, data }">
         <span>{{ node.label }}</span>
         <span>
@@ -92,7 +94,6 @@ export default {
         this.menus = data.data
       })
     },
-
     append(data) {
       this.resetCategoryData()
       console.log('append', data)
@@ -142,7 +143,6 @@ export default {
           message: '已取消'
         })
       })
-      console.log('remove', node, data)
     },
     edit(data) {
       console.log('edithttp')
@@ -189,6 +189,37 @@ export default {
       this.newCategory.name = ''
       this.newCategory.productUnit = ''
       this.newCategory.showStatus = 1
+    },
+    deleteBatch() {
+      let catIds = []
+      let names = []
+      let checkedNodes = this.$refs.menuTree.getCheckedNodes()
+      for (let i = 0; i < checkedNodes.length; i++) {
+        catIds.push(checkedNodes[i].catId)
+        names.push(checkedNodes[i].name)
+      }
+      this.$confirm(`确认删除【${names}】分类吗?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$http({
+          url: this.$http.adornUrl('/product/category/delete'),
+          method: 'DELETE',
+          data: this.$http.adornData(catIds, false)
+        }).then(({data}) => {
+          this.$message({
+            type: 'success',
+            message: '删除成功!'
+          })
+          this.getTree()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消'
+        })
+      })
     }
   },
   beforeCreate() {
