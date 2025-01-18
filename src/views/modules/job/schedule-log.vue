@@ -107,14 +107,14 @@
           url: this.$http.adornUrl('/sys/scheduleLog/list'),
           method: 'get',
           params: this.$http.adornParams({
-            'page': this.pageIndex,
-            'limit': this.pageSize,
+            'pageNum': this.pageIndex,
+            'pageSize': this.pageSize,
             'jobId': this.dataForm.id
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
-            this.dataList = data.page.list
-            this.totalPage = data.page.totalCount
+            this.dataList = data.data.records
+            this.totalPage = data.data.total
           } else {
             this.dataList = []
             this.totalPage = 0

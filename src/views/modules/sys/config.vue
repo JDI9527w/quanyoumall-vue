@@ -104,14 +104,14 @@
           url: this.$http.adornUrl('/sys/config/list'),
           method: 'get',
           params: this.$http.adornParams({
-            'page': this.pageIndex,
-            'limit': this.pageSize,
+            'pageNum': this.pageIndex,
+            'pageSize': this.pageSize,
             'paramKey': this.dataForm.paramKey
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
-            this.dataList = data.page.list
-            this.totalPage = data.page.totalCount
+            this.dataList = data.data.records
+            this.totalPage = data.data.total
           } else {
             this.dataList = []
             this.totalPage = 0
