@@ -5,7 +5,7 @@
         <div>
           <el-form :inline="true" :model="dataForm" @keyup.enter.native="getDataList()">
             <el-form-item>
-              <el-input v-model="dataForm.key" placeholder="参数名" clearable></el-input>
+              <el-input v-model="dataForm.paramName" placeholder="属性名" clearable></el-input>
             </el-form-item>
             <el-form-item>
               <el-button @click="getDataList()">查询</el-button>
@@ -100,7 +100,7 @@ export default {
       relationAttrs: [],
       dataListSelections: [],
       dataForm: {
-        key: ""
+        paramName: ""
       },
       dataList: [],
       pageIndex: 1,
@@ -133,7 +133,7 @@ export default {
       });
       this.$http({
         url: this.$http.adornUrl("/product/attrgroup/attr/relation/delete"),
-        method: "post",
+        method: "DELETE",
         data: this.$http.adornData(postData, false)
       }).then(({data}) => {
         if (data.code == 0) {
@@ -150,7 +150,7 @@ export default {
       data.push({attrId, attrGroupId: this.attrGroupId});
       this.$http({
         url: this.$http.adornUrl("/product/attrgroup/attr/relation/delete"),
-        method: "post",
+        method: "DELETE",
         data: this.$http.adornData(data, false)
       }).then(({data}) => {
         if (data.code == 0) {
@@ -212,7 +212,7 @@ export default {
         params: this.$http.adornParams({
           'pageNum': this.pageIndex,
           'pageSize': this.pageSize,
-          key: this.dataForm.key
+          paramName: this.dataForm.paramName
         })
       }).then(({data}) => {
         if (data && data.code === 0) {

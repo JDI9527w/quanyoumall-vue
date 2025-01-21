@@ -139,11 +139,11 @@ export default {
         this.$refs.relationUpdate.init(groupId);
       });
     },
-    resetKey(){
+    resetKey() {
       this.dataForm.key = null;
     },
     treeNodeClick(data) {
-      if(data.catLevel === 3){
+      if (data.catLevel === 3) {
         this.catelogId = data.catId
         this.getDataList()
       }
@@ -159,7 +159,7 @@ export default {
           'pageNum': this.pageIndex,
           'pageSize': this.pageSize,
           'attrGroupName': this.dataForm.key,
-          'catelogId':this.catelogId
+          'catelogId': this.catelogId
         })
       }).then(({data}) => {
         if (data && data.code === 0) {
@@ -206,7 +206,7 @@ export default {
       }).then(() => {
         this.$http({
           url: this.$http.adornUrl('/product/attrgroup/delete'),
-          method: 'post',
+          method: 'DELETE',
           data: this.$http.adornData(ids, false)
         }).then(({data}) => {
           if (data && data.code === 0) {
@@ -220,6 +220,7 @@ export default {
             })
           } else {
             this.$message.error(data.msg)
+            this.getDataList()
           }
         })
       })
