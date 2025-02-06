@@ -156,7 +156,7 @@ export default {
             this.$http({
               url: this.$http.adornUrl("/ware/purchase/merge"),
               method: "post",
-              data: this.$http.adornData({items: items}, false)
+              data: this.$http.adornData({purchaseDetailIdList: items}, false)
             }).then(({data}) => {
               this.getDataList();
             });
@@ -168,7 +168,7 @@ export default {
           url: this.$http.adornUrl("/ware/purchase/merge"),
           method: "post",
           data: this.$http.adornData(
-            {purchaseId: this.purchaseId, items: items},
+            {purchaseId: this.purchaseId, purchaseDetailIdList: items},
             false
           )
         }).then(({data}) => {

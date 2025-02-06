@@ -108,7 +108,7 @@ export default {
             url: this.$http.adornUrl(
               `/ware/waresku/${!this.dataForm.id ? "save" : "update"}`
             ),
-            method: "post",
+            method: `${!this.dataForm.id ?  "POST" : "PUT"}`,
             data: this.$http.adornData({
               id: this.dataForm.id || undefined,
               skuId: this.dataForm.skuId,

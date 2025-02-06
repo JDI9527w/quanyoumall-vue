@@ -109,8 +109,8 @@ export default {
     return {
       currentRow: {},
       dataForm: {
-        wareId:"",
-        purchaseId:"",
+        wareId: "",
+        purchaseId: "",
         status: ""
       },
       dataList: [],
@@ -197,9 +197,9 @@ export default {
         params: this.$http.adornParams({
           pageNum: this.pageIndex,
           pageSize: this.pageSize,
-          status:this.dataForm.status,
-          wareId:this.dataForm.wareId,
-          purchaseId:this.dataForm.purchaseId
+          status: this.dataForm.status,
+          wareId: this.dataForm.wareId,
+          purchaseId: this.dataForm.purchaseId
         })
       }).then(({data}) => {
         if (data && data.code === 0) {
