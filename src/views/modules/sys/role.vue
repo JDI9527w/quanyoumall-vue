@@ -105,14 +105,14 @@
           url: this.$http.adornUrl('/sys/role/list'),
           method: 'get',
           params: this.$http.adornParams({
-            'pageNum': this.pageIndex,
-            'pageSize': this.pageSize,
+            'page': this.pageIndex,
+            'limit': this.pageSize,
             'roleName': this.dataForm.roleName
           })
         }).then(({data}) => {
           if (data && data.code === 0) {
-            this.dataList = data.data.records
-            this.totalPage = data.data.total
+            this.dataList = data.page.list
+            this.totalPage = data.page.totalCount
           } else {
             this.dataList = []
             this.totalPage = 0
